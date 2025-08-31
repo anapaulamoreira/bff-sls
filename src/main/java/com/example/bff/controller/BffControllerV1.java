@@ -1,17 +1,17 @@
 package com.example.bff.controller;
 
-import com.example.bff.service.LegadoService;
+import com.example.bff.service.LegadoServiceV1;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/bff")
-public class BffController {
+@RequestMapping("/v1")
+public class BffControllerV1 {
+    private final LegadoServiceV1 legadoService;
 
-    private final LegadoService legadoService;
-
-    public BffController(LegadoService legadoService) {
+    public BffControllerV1(LegadoServiceV1 legadoService) {
         this.legadoService = legadoService;
     }
 
@@ -28,5 +28,10 @@ public class BffController {
     @GetMapping("/normal-data")
     public String dadosNormais() {
         return legadoService.getDadosNormais();
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<String> dadoUnico() {
+        return legadoService.getDadoUnico();
     }
 }
